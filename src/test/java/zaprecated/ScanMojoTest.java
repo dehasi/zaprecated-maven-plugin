@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class MyMojoTest {
+public class ScanMojoTest {
     @Rule
     public MojoRule rule = new MojoRule() {
         @Override
@@ -28,16 +28,9 @@ public class MyMojoTest {
         assertNotNull(pom);
         assertTrue(pom.exists());
 
-        MyMojo myMojo = (MyMojo)rule.lookupConfiguredMojo(pom, "touch");
-        assertNotNull(myMojo);
-        myMojo.execute();
-
-        File outputDirectory = (File)rule.getVariableValueFromObject(myMojo, "outputDirectory");
-        assertNotNull(outputDirectory);
-        assertTrue(outputDirectory.exists());
-
-        File touch = new File(outputDirectory, "touch.txt");
-        assertTrue(touch.exists());
+        ScanMojo scanMojo = (ScanMojo)rule.lookupConfiguredMojo(pom, "scan");
+        assertNotNull(scanMojo);
+        scanMojo.execute();
     }
 
     /** Do not need the MojoRule. */
